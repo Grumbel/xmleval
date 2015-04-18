@@ -28,7 +28,7 @@ pkg_search_module(CLANGL REQUIRED clanGL-1.0)
 pkg_search_module(CLANDISPLAY REQUIRED clanDisplay-1.0)
 pkg_search_module(CLANSOUND REQUIRED clanSound-1.0)
 
-add_executable(xmleval src/xml_eval.cpp)
+add_executable(xmleval src/xml_eval.cpp src/main.cpp)
 target_link_libraries(xmleval PUBLIC
   ${CLANCORE_LIBRARIES}
   ${CLANAPP_LIBRARIES}

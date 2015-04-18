@@ -14,19 +14,36 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef HEADER_XML_EVAL_HPP
-#define HEADER_XML_EVAL_HPP
+#include "xml_eval.hpp"
 
-#include <ClanLib/core.h>
+int main(int argc, char** argv)
+{
+  if (argc !=  2)
+  {
+    std::cout << "Usage: " << argv[0] << " FILENAME" << std::endl;
+    return 1;
+  }
+  else
+  {
+    try
+    {
+      CL_SetupCore::init();
 
-namespace xmleval {
+      std::string filename = argv[1];
+      CL_DomDocument dom(new CL_InputSource_File(filename), true);
 
-void eval(const CL_DomNode& cur);
-void eval_block(CL_DomNode cur);
-int  lookup(const std::string& name);
+      CL_DomNode cur = dom.get_document_element();
 
-} // namespace xmleval
+      xmleval::eval(cur);
 
-#endif
+      CL_SetupCore::deinit();
+    }
+    catch (CL_Error& err)
+    {
+      std::cout << "CL_Error: " << err.message << std::endl;
+    }
+    return 0;
+  }
+}
 
 /* EOF */
