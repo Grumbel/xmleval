@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <block>
   <set name="last1" var="0" />
   <set name="last2" var="1" />
