@@ -18,7 +18,7 @@
 #include <ClanLib/core.h>
 #include "xml_eval.hpp"
 
-namespace XMLEval {
+namespace xmleval {
 
 std::map<std::string, int> variables;
 std::map<std::string, CL_DomNode> functions;
@@ -142,29 +142,36 @@ void eval(const CL_DomNode& cur)
     }
 }
 
-} // namespace XMLEval
+} // namespace xmleval
 
 int main(int argc, char** argv)
 {
-  try {
-  CL_SetupCore::init();
-
-  std::string filename = "test.xml";
-
-  if (argc > 1)
-    filename = argv[1];
-
-  CL_DomDocument dom(new CL_InputSource_File(filename), true);
-
-  CL_DomNode cur = dom.get_document_element();
-
-  XMLEval::eval(cur);
-
-  CL_SetupCore::deinit();
-  } catch (CL_Error& err) {
-    std::cout << "CL_Error: " << err.message << std::endl;
+  if (argc !=  2)
+  {
+    std::cout << "Usage: " << argv[0] << " FILENAME" << std::endl;
+    return 1;
   }
-  return 0;
+  else
+  {
+    try
+    {
+      CL_SetupCore::init();
+
+      std::string filename = argv[1];
+      CL_DomDocument dom(new CL_InputSource_File(filename), true);
+
+      CL_DomNode cur = dom.get_document_element();
+
+      xmleval::eval(cur);
+
+      CL_SetupCore::deinit();
+    }
+    catch (CL_Error& err)
+    {
+      std::cout << "CL_Error: " << err.message << std::endl;
+    }
+    return 0;
+  }
 }
 
 /* EOF */

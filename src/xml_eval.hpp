@@ -17,13 +17,13 @@
 #ifndef HEADER_XML_EVAL_HXX
 #define HEADER_XML_EVAL_HXX
 
-namespace XMLEval {
+namespace xmleval {
 
 void eval(const CL_DomNode& cur);
 void eval_block(CL_DomNode cur);
 int  lookup(const std::string& name);
 
-} // namespace XMLEval
+} // namespace xmleval
 
 #endif
 
