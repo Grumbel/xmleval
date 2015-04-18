@@ -1,21 +1,18 @@
-//  $Id$
+// xmleval - A toy XML scripting language
+// Copyright (C) 2004 Ingo Ruhnke <grumbel@gmail.com>
 //
-//  Pingus - A free Lemmings clone
-//  Copyright (C) 2002 Ingo Ruhnke <grumbel@gmx.de>
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-//  This program is free software; you can redistribute it and/or
-//  modify it under the terms of the GNU General Public License
-//  as published by the Free Software Foundation; either version 2
-//  of the License, or (at your option) any later version.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//
-//  You should have received a copy of the GNU General Public License
-//  along with this program; if not, write to the Free Software
-//  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <ClanLib/core.h>
@@ -29,7 +26,7 @@ std::map<std::string, CL_DomNode> functions;
 int lookup(const std::string& name)
 {
   int value = 0;
-  
+
   if (CL_String::from(name, value))
     {
       return value;
@@ -50,10 +47,10 @@ int lookup(const std::string& name)
 void eval_block(CL_DomNode child)
 {
   while(!child.is_null())
-    { 
+    {
       if (child.is_element())
         eval(child);
-                  
+
       child = child.get_next_sibling();
     }
 }
@@ -65,10 +62,10 @@ void eval(const CL_DomNode& cur)
   if (cur.is_element())
     {
       if (cur.get_node_name() == "for")
-        {         
+        {
           std::string var = el.get_attribute("name");
 
-          for(int i = lookup(el.get_attribute("start")); 
+          for(int i = lookup(el.get_attribute("start"));
               i <= lookup(el.get_attribute("end")); ++i)
             {
               variables[var] = i;
@@ -81,7 +78,7 @@ void eval(const CL_DomNode& cur)
         }
       else if (cur.get_node_name() == "printvar")
         {
-          std::cout << lookup(el.get_attribute("var")) << std::flush;          
+          std::cout << lookup(el.get_attribute("var")) << std::flush;
         }
       else if (cur.get_node_name() == "print")
         {
@@ -105,12 +102,12 @@ void eval(const CL_DomNode& cur)
         }
       else if (cur.get_node_name() == "modulo")
         {
-          variables[el.get_attribute("name")] 
+          variables[el.get_attribute("name")]
             = lookup(el.get_attribute("name")) % lookup(el.get_attribute("var"));
         }
       else if (cur.get_node_name() == "add")
         {
-          variables[el.get_attribute("name")] 
+          variables[el.get_attribute("name")]
             = lookup(el.get_attribute("name")) + lookup(el.get_attribute("var"));
         }
       else if (cur.get_node_name() == "if-non-zero")
@@ -160,7 +157,7 @@ int main(int argc, char** argv)
   CL_DomDocument dom(new CL_InputSource_File(filename), true);
 
   CL_DomNode cur = dom.get_document_element();
-  
+
   XMLEval::eval(cur);
 
   CL_SetupCore::deinit();
