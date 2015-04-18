@@ -30,7 +30,7 @@
 
     <print string="-- Start"/>
     <newline />
-    
+
     <for name="i" start="1" end="5">
       <funcall name="dosomething" />
     </for>
