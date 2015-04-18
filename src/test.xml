@@ -1,40 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <block>
-    <defvar name="foo" value="3" />
+  <set name="foo" value="3" />
 
-    <defun name="dosomething">
-      <foobar />
+  <function name="dosomething">
+    <foobar />
 
-      <defvarvar name="tmp" var="foo" />
-      <modulo var="tmp" value="2" />
+    <set name="tmp" var="5" />
+    <modulo var="tmp" value="2" />
 
-      <if-zero var="tmp">
-        <printvar var="foo" />
-        <print string=" ist gerade!" />
-        <newline />
-      </if-zero>
-
-      <if-non-zero var="tmp">
-        <printvar var="foo" />
-        <print string=" ist ungerade!" />
-        <newline />
-      </if-non-zero>
-
-      <add  var="foo" value="5" />
-      <mult var="foo" value="3" />
-
-      <printvar var="i" />
-      <print string=". Hello World "/>
+    <if-zero var="tmp">
       <printvar var="foo" />
+      <print string=" ist gerade!" />
       <newline />
-    </defun>
+    </if-zero>
 
-    <print string="-- Start"/>
+    <if-non-zero var="tmp">
+      <printvar var="foo" />
+      <print string=" ist ungerade!" />
+      <newline />
+    </if-non-zero>
+
+    <add  var="foo" value="5" />
+    <mult var="foo" value="3" />
+
+    <printvar var="i" />
+    <print string=". Hello World "/>
+    <printvar var="foo" />
     <newline />
+  </function>
 
-    <for name="i" start="1" end="5">
-      <funcall name="dosomething" />
-    </for>
+  <print string="-- Start"/>
+  <newline />
 
-    <print string="-- End" />
-    <newline />
+  <for name="i" start="1" end="5">
+    <funcall name="dosomething" />
+  </for>
+
+  <print string="-- End" />
+  <newline />
 </block>
