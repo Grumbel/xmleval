@@ -19,8 +19,7 @@
 
 #include <iostream>
 #include <ClanLib/core.h>
-#include "xml_eval.hxx"
-#include "string_converter.hxx"
+#include "xml_eval.hpp"
 
 namespace XMLEval {
 
@@ -31,7 +30,7 @@ int lookup(const std::string& name)
 {
   int value = 0;
   
-  if (from_string(name, value))
+  if (CL_String::from(name, value))
     {
       return value;
     }
