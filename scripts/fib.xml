@@ -5,15 +5,17 @@
 
   <function name="fib">
     <set name="cur" var="last1" />
-    <add name="cur" var="last2" />
 
     <printvar var="cur" />
     <newline />
 
+    <add name="cur" var="last2" />
+
     <set name="last1" var="last2" />
     <set name="last2" var="cur" />
-    <funcall name="fib" />
   </function>
 
-  <funcall name="fib" />
+  <for name="i" start="0" end="46">
+    <funcall name="fib" />
+  </for>
 </block>
