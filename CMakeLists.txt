@@ -15,32 +15,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 cmake_minimum_required(VERSION 3.0)
-project(feuerkraft VERSION 0.2.0)
+project(xmleval VERSION 0.2.0)
 
-set(WARNINGS 0 CACHE BOOL "Switch on extra warnings")
+include(GNUInstallDirs)
 
-find_package(Threads REQUIRED)
 find_package(PkgConfig REQUIRED)
-pkg_search_module(GUILE REQUIRED guile-1.8)
-pkg_search_module(CLANCORE REQUIRED clanCore-1.0)
-pkg_search_module(CLANAPP REQUIRED clanApp-1.0)
-pkg_search_module(CLANGL REQUIRED clanGL-1.0)
-pkg_search_module(CLANDISPLAY REQUIRED clanDisplay-1.0)
-pkg_search_module(CLANSOUND REQUIRED clanSound-1.0)
+pkg_search_module(CLANCORE REQUIRED clanCore-1.0 IMPORTED_TARGET)
 
-add_executable(xmleval src/xml_eval.cpp src/main.cpp)
+add_executable(xmleval src/main.cpp src/xml_eval.cpp)
+target_include_directories(xmleval PRIVATE src/)
 target_link_libraries(xmleval PUBLIC
-  ${CLANCORE_LIBRARIES}
-  ${CLANAPP_LIBRARIES}
-  ${CLANGL_LIBRARIES}
-  ${CLANDISPLAY_LIBRARIES}
-  ${CLANGL_LIBRARIES}
-  ${CMAKE_THREAD_LIBS_INIT})
-target_include_directories(xmleval PUBLIC
-  ${CLANCORE_INCLUDE_DIRS}
-  ${CLANAPP_INCLUDE_DIRS}
-  ${CLANGL_INCLUDE_DIRS}
-  ${CLANDISPLAY_INCLUDE_DIRS}
-  ${CLANGL_INCLUDE_DIRS})
+  PkgConfig::CLANCORE)
+
+install(TARGETS xmleval
+  RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
+install(DIRECTORY "scripts/" DESTINATION "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/scripts/"
+  PATTERN "*~" EXCLUDE)
 
 # EOF #
