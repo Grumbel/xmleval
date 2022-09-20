@@ -14,21 +14,26 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-      in rec {
-        packages = flake-utils.lib.flattenTree {
+      in {
+        packages = rec {
+          default = xmleval;
+
           xmleval = pkgs.stdenv.mkDerivation {
             pname = "xmleval";
             version = "0.2.0";
+
             src = nixpkgs.lib.cleanSource ./.;
+
             nativeBuildInputs = [
               pkgs.cmake
               pkgs.pkgconfig
             ];
+
             buildInputs = [
-              clanlib.defaultPackage.${system}
+              clanlib.packages.${system}.default
             ];
            };
         };
-        defaultPackage = packages.xmleval;
-      });
+      }
+    );
 }
