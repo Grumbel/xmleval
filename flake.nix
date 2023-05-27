@@ -2,7 +2,7 @@
   description = "XML based toy programming language";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     flake-utils.url = "github:numtide/flake-utils";
 
     clanlib.url = "github:grumbel/clanlib-1.0";
@@ -22,11 +22,11 @@
             pname = "xmleval";
             version = "0.2.0";
 
-            src = nixpkgs.lib.cleanSource ./.;
+            src = ./.;
 
-            nativeBuildInputs = [
-              pkgs.cmake
-              pkgs.pkgconfig
+            nativeBuildInputs = with pkgs; [
+              cmake
+              pkgconfig
             ];
 
             buildInputs = [
